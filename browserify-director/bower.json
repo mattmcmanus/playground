@@ -1,0 +1,22 @@
+{
+  "name": "routing_demo",
+  "version": "0.0.0",
+  "authors": [
+    "Matt McManus <matt@mcmanus.io>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "director": "~1.2.2",
+    "jquery": "~2.1.0",
+    "bootstrap": "~3.0.3"
+  }
+}
