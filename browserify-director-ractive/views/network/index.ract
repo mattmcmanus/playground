@@ -1,0 +1,17 @@
+<h1>Resource List</h1>
+
+<table>
+  <thead>
+    <th>ID</th>
+    <th>Name</th>
+  </thead>
+  <tbody>
+  {{#resources}}
+    <tr>
+      <td>{{id}}</td>
+      <td>{{name}}</td>
+    </tr>
+  {{/resources}}
+  </tbody>
+
+</table>

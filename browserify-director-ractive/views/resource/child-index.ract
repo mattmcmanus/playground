@@ -1,0 +1,19 @@
+<h3>{{name}} List</h3>
+{{resourceId}}
+<table class="table">
+  <thead>
+    {{#headers}}
+      <th>{{this}}</th>
+    {{/headers}}
+  </thead>
+  <tbody>
+  {{#resources( resourceId, allResources )}}
+    <tr>
+      <td>{{ip}}</td>
+      <td>{{private}}</td>
+      <td>{{public}}</td>
+    </tr>
+  {{/resources}}
+  </tbody>
+
+</table>

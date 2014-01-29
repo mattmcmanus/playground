@@ -1,0 +1,23 @@
+<div style="display: {{visible ? 'block' : 'none'}}">
+  <div class="row">
+    <a href="#/">Back to list</a>
+    <h1>Network: {{resource.name}}</h1>
+  </div>
+  <div class="row">
+    <ul class="nav nav-tabs">
+      {{#childResourceTypes}}
+        <li><a href="#{{key}}">{{name}}</a></li>
+      {{/childResourceTypes}}
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      {{#childResourceTypes}}
+        <div class="tab-pane" id="{{key}}">
+          <div id="{{key}}_view"></div>
+        </div>
+      {{/childResourceTypes}}
+    </div>
+  </div>
+</div>
+

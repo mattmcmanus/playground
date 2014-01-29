@@ -5,11 +5,7 @@ module.exports = function(router) {
     setup: function(){
       $('.nav-tabs a').on('click', function(e) {
         e.preventDefault();
-        console.log('click')
-        var href = url.parse(this.href);
-        if (!$(this).parent().hasClass('active')) {
-          router.setRoute(2, href.hash.substr(1))
-        }
+        router.setRoute(2, url.parse(this.href).hash.substr(1))
       });
     },
 
@@ -36,6 +32,7 @@ module.exports = function(router) {
     resource: function(networkId, resource, action) {
       console.log('resourceShow')
       $('.nav-tabs a[href="#'+resource+'"]').tab('show')
+      return false;
     },
 
     resourceAction: function(networkId, resource, action) {
