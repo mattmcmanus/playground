@@ -8,6 +8,9 @@ var routes = {
   '/': {
     on: 'index'
   },
+  '/new' : {
+    on: 'form'
+  },
   '/network/:networkId': {
     on: 'show',
 

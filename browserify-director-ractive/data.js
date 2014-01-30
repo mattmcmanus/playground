@@ -15,7 +15,7 @@ var childResourceTypes = exports.childResourceTypes =  [
 
 var childResources = exports.childResources = {
   "outbound": {
-    header: ['IP Address', 'Private Port', 'Public Port'],
+    columns: ['IP Address', 'Private Port', 'Public Port'],
     data: [
       { network: 1, ip: '1.1.1.1', private: '8080', public: '80'},
       { network: 2, ip: '1.1.1.2', private: '8080', public: '80'},
@@ -25,7 +25,7 @@ var childResources = exports.childResources = {
     ]
   },
   "inbound": {
-    header: ['IP Address', 'Private Port', 'Public Port'],
+    columns: ['IP Address', 'Private Port', 'Public Port'],
     data: [
       { network: 1, ip: '1.1.1.1', private: '8080', public: '80'},
       { network: 2, ip: '1.1.1.2', private: '8080', public: '80'},
@@ -35,7 +35,7 @@ var childResources = exports.childResources = {
     ]
   },
   "forwarding": {
-    header: ['IP Address', 'Private Port', 'Public Port'],
+    columns: ['IP Address', 'Private Port', 'Public Port'],
     data: [
       { network: 1, ip: '1.1.1.1', private: '8080', public: '80'},
       { network: 2, ip: '1.1.1.2', private: '8080', public: '80'},
@@ -45,7 +45,7 @@ var childResources = exports.childResources = {
     ]
   },
   "balancing": {
-    header: ['IP Address', 'Private Port', 'Public Port'],
+    columns: ['IP Address', 'Private Port', 'Public Port'],
     data: [
       { network: 1, ip: '1.1.1.1', private: '8080', public: '80'},
       { network: 2, ip: '1.1.1.2', private: '8080', public: '80'},

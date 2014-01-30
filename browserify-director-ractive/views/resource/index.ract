@@ -1,5 +1,6 @@
-{{#visible}}
-  <h1>{{name}} List</h1>
+<h1>{{name}}s <a class="btn btn-primary" href="#/new">New Network</a></h1>
+
+{{#showList}}
   <table class="table">
     <thead>
       {{#headers}}
@@ -7,12 +8,22 @@
       {{/headers}}
     </thead>
     <tbody>
-    {{#resources}}
+    {{#resources:index}}
       <tr>
         <td>{{id}}</td>
         <td><a href="#/network/{{id}}">{{name}}</a></td>
+        <td><button class="btn btn-danger btn-sm" on-click="delete:{{index}}">Delete</button></td>
       </tr>
     {{/resources}}
     </tbody>
   </table>
-{{/visible}}
+{{/showList}}
+
+{{#showForm}}
+  <h1>Make a netwerk</h1>
+  <form on-submit="newResource">
+    <input class="id" placeholder="ID" value="{{newId}}">
+    <input class="name" placeholder="Network Name" value="{{newName}}">
+    <input class="btn" type="submit" value="Create network">
+  </form>
+{{/showForm}}

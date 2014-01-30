@@ -2,19 +2,20 @@ var url = require('url');
 var _ = require('lodash');
 var Ractive = require('ractify');
 
-var ResourceList = require('../lib/resource_list');
-var ChildResourceList = require('../lib/child_resource_list');
-var ResourceShow = require('../lib/resource_show');
-
 var data = require('../data.js')
 
 
 module.exports = function(router) {
+  var ResourceList = require('../lib/resource_list')(router);
+  var ChildResourceList = require('../lib/child_resource_list');
+  var ResourceShow = require('../lib/resource_show');
+
   var networkShow, networkList, childResourceShow = {};
+  var init, index, form, show, resource, action;
 
   var instantiated = false;
 
-  var init = function(id, resource, action){
+  init = function(id, resourceType, action){
     console.log('init')
 
     if (!instantiated) {
@@ -22,7 +23,7 @@ module.exports = function(router) {
         el: 'list',
         childResourceTypes: data.childResourceTypes,
         name: 'Network',
-        headers: ['ID', 'Name'],
+        columnes: ['ID', 'Name', 'Actions'],
         resources: data.resources
       })
 
@@ -37,12 +38,12 @@ module.exports = function(router) {
         router.setRoute(2, url.parse(this.href).hash.substr(1))
       });
 
-      data.childResourceTypes.forEach(function(resource, key){
-        childResourceShow[resource.key] = new ChildResourceList({
-          el: resource.key+'_view',
-          name: resource.name,
-          headers: data.childResources[resource.key].header,
-          allResources: data.childResources[resource.key].data
+      data.childResourceTypes.forEach(function(type, index){
+        childResourceShow[type.key] = new ChildResourceList({
+          el: type.key+'_view',
+          name: type.name,
+          columns: data.childResources[type.key].columns,
+          allResources: data.childResources[type.key].data
         })
       })
 
@@ -50,7 +51,7 @@ module.exports = function(router) {
     }
   }
 
-  var index = function(id, resource, action){
+  index = function(id, resourceType, action){
     console.log('networkIndex')
     if (!id) {
       networkList.set('visible', true)
@@ -58,7 +59,12 @@ module.exports = function(router) {
     }
   }
 
-  var show = function(id, resource, action){
+  form = function() {
+    console.log('networkForm')
+    networkList.set('visible', 'form')
+  }
+
+  show = function(id, resourceType, action){
     console.log('networkShow')
 
     if (id) {
@@ -68,24 +74,26 @@ module.exports = function(router) {
       var resourceObject = _.find(data.resources, function(r){ return (r.id == id) })
       networkShow.set('resource', resourceObject)
 
-      if (!resource)
-        $('.nav-tabs a:first').tab('show')
+      if (!resourceType) {
+        resource(id, data.childResourceTypes[0].key)
+      }
     }
   }
 
-  var resource = function(id, resource, action){
+  resource = function(id, resourceType, action){
     console.log('resourceShow')
-    childResourceShow[resource].set('resourceId', networkShow.get('resource.id'))
-    $('.nav-tabs a[href="#'+resource+'"]').tab('show')
+    childResourceShow[resourceType].set('resourceId', networkShow.get('resource.id'))
+    $('.nav-tabs a[href="#'+resourceType+'"]').tab('show')
   }
 
-  var action = function(id, resource, action){
+  action = function(id, resourceType, action){
     console.log('resourceAction')
   }
 
   return {
     init: init,
     index: index,
+    form: form,
     show: show,
     resource: resource,
     action: action,
