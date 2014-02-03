@@ -29,14 +29,15 @@ router = Router(routes);
 var network = require('./controllers/network')(router);
 
 router.configure({
-  recurse: 'forward',
+  recurse: 'backward',
   resource: network,
   on: function(){console.log('global-on'); console.log('--------------------')},
   notfound: function(){console.log('not found', arguments)},
-  before: network.init
+  before: function(){ console.log('before') }
 });
 
 $('document').ready(function(){
   console.log('Ready');
+  network.init();
   router.init('/');
 });

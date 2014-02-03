@@ -1,4 +1,4 @@
-var resources = exports.resources = [
+var resources = window.resources = exports.resources = [
   { id:1, name: "Pizza" },
   { id:2, name: "Science" },
   { id:3, name: "Florida" },

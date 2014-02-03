@@ -3,9 +3,9 @@
 {{#showList}}
   <table class="table">
     <thead>
-      {{#headers}}
+      {{#columns}}
         <th>{{this}}</th>
-      {{/headers}}
+      {{/columns}}
     </thead>
     <tbody>
     {{#resources:index}}
@@ -24,6 +24,6 @@
   <form on-submit="newResource">
     <input class="id" placeholder="ID" value="{{newId}}">
     <input class="name" placeholder="Network Name" value="{{newName}}">
-    <input class="btn" type="submit" value="Create network">
+    <input class="btn" type="submit" value="Create {{name}}">
   </form>
 {{/showForm}}

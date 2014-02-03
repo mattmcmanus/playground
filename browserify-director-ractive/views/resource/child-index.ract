@@ -2,9 +2,9 @@
 {{resourceId}}
 <table class="table">
   <thead>
-    {{#headers}}
+    {{#columns}}
       <th>{{this}}</th>
-    {{/headers}}
+    {{/columns}}
   </thead>
   <tbody>
   {{#resources( resourceId, allResources )}}

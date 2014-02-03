@@ -4,7 +4,6 @@ var Ractive = require('ractify');
 
 var data = require('../data.js')
 
-
 module.exports = function(router) {
   var ResourceList = require('../lib/resource_list')(router);
   var ChildResourceList = require('../lib/child_resource_list');
@@ -13,42 +12,36 @@ module.exports = function(router) {
   var networkShow, networkList, childResourceShow = {};
   var init, index, form, show, resource, action;
 
-  var instantiated = false;
-
   init = function(id, resourceType, action){
     console.log('init')
 
-    if (!instantiated) {
-      networkList = new ResourceList({
-        el: 'list',
-        childResourceTypes: data.childResourceTypes,
-        name: 'Network',
-        columnes: ['ID', 'Name', 'Actions'],
-        resources: data.resources
+    networkList = new ResourceList({
+      el: 'list',
+      childResourceTypes: data.childResourceTypes,
+      name: 'Network',
+      columns: ['ID', 'Name', 'Actions'],
+      resources: data.resources
+    })
+
+    networkShow = new ResourceShow({
+      el: 'show',
+      resource: {},
+      childResourceTypes: data.childResourceTypes
+    })
+
+    $('.nav-tabs a').on('click', function(e) {
+      e.preventDefault();
+      router.setRoute(2, url.parse(this.href).hash.substr(1))
+    });
+
+    data.childResourceTypes.forEach(function(type, index){
+      childResourceShow[type.key] = new ChildResourceList({
+        el: type.key+'_view',
+        name: type.name,
+        columns: data.childResources[type.key].columns,
+        allResources: data.childResources[type.key].data
       })
-
-      networkShow = new ResourceShow({
-        el: 'show',
-        resource: {},
-        childResourceTypes: data.childResourceTypes
-      })
-
-      $('.nav-tabs a').on('click', function(e) {
-        e.preventDefault();
-        router.setRoute(2, url.parse(this.href).hash.substr(1))
-      });
-
-      data.childResourceTypes.forEach(function(type, index){
-        childResourceShow[type.key] = new ChildResourceList({
-          el: type.key+'_view',
-          name: type.name,
-          columns: data.childResources[type.key].columns,
-          allResources: data.childResources[type.key].data
-        })
-      })
-
-      instantiated = true;
-    }
+    })
   }
 
   index = function(id, resourceType, action){
@@ -84,6 +77,8 @@ module.exports = function(router) {
     console.log('resourceShow')
     childResourceShow[resourceType].set('resourceId', networkShow.get('resource.id'))
     $('.nav-tabs a[href="#'+resourceType+'"]').tab('show')
+
+    return false;
   }
 
   action = function(id, resourceType, action){
